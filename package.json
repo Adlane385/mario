@@ -1,0 +1,18 @@
+{
+    "name": "congressional-sidescroller",
+    "version": "1.0.0",
+    "description": "An educational game about how a bill becomes a law in the US Congress",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "keywords": [
+        "education",
+        "game",
+        "congress",
+        "legislation",
+        "sidescroller"
+    ],
+    "author": "",
+    "license": "MIT"
+}
