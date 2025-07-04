@@ -224,8 +224,9 @@ class UI {
     const video = document.createElement("video");
     video.width = 800;
     video.height = 500;
-    video.controls = false;
+    video.controls = true; // Enable controls for better user experience
     video.autoplay = true;
+    video.onended = () => this.videoEnded(); // Add event listener for video end
 
     // Set video source based on type
     let videoSrc = "";
@@ -252,6 +253,22 @@ class UI {
         videoSrc = "assets/videos/ending.mp4";
         videoTitle = "Your Bill is Now a Law!";
         break;
+    }
+    
+    // Try to load the video if it exists
+    try {
+      const videoExists = new XMLHttpRequest();
+      videoExists.open('HEAD', videoSrc, false);
+      videoExists.send();
+      
+      if (videoExists.status === 200) {
+        // Video exists, use it
+        video.src = videoSrc;
+        this.elements.videoContainer.appendChild(video);
+        return; // Exit early, we're using the actual video
+      }
+    } catch (e) {
+      console.log("Video not found, using placeholder");
     }
 
     // For development, use a placeholder instead of actual videos

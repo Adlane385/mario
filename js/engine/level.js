@@ -143,6 +143,11 @@ class Level {
           player.bullets.splice(i, 1);
         }
       }
+      
+      // Check player collision with boss (only if player is not invulnerable)
+      if (!player.isInvulnerable && boss.isActive && checkCollision(player, boss)) {
+        player.takeDamage();
+      }
     }
 
     // Check educational points

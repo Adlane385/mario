@@ -9,33 +9,25 @@ function createBossLevel(game) {
     2000
   );
 
-  // Create a more continuous ground with fewer, more strategic holes
+  // Create a more continuous ground with only one strategic hole
 
   // First ground section
   level.addPlatform(
-    new Platform(0, 500, 600, 100, "solid", {
+    new Platform(0, 500, 900, 100, "solid", {
       color: "#8B4513",
     })
   );
 
   // Middle ground section
   level.addPlatform(
-    new Platform(800, 500, 600, 100, "solid", {
+    new Platform(1100, 500, 900, 100, "solid", {
       color: "#8B4513",
     })
   );
 
-  // Last ground section
-  level.addPlatform(
-    new Platform(1600, 500, 400, 100, "solid", {
-      color: "#8B4513",
-    })
-  );
-
-  // Add just two major holes in the ground at strategic locations
+  // Add just one major hole in the ground at a strategic location
   const holePositions = [
-    { x: 600, y: 500, width: 200, height: 100 }, // Larger hole between sections
-    { x: 1400, y: 500, width: 200, height: 100 }, // Larger hole before final section
+    { x: 900, y: 500, width: 200, height: 100 }, // Single larger hole in the middle
   ];
 
   for (const pos of holePositions) {
@@ -131,8 +123,16 @@ function createBossLevel(game) {
     { x: 250, y: 350, type: "special", value: 3 },
     { x: 500, y: 200, type: "special", value: 3 },
     { x: 800, y: 250, type: "special", value: 3 },
+    { x: 1000, y: 300, type: "special", value: 3 },
     { x: 1150, y: 150, type: "special", value: 3 },
     { x: 1400, y: 350, type: "special", value: 3 },
+    { x: 1600, y: 250, type: "special", value: 3 },
+    // Add some regular coins for additional votes
+    { x: 300, y: 450, type: "regular", value: 1 },
+    { x: 600, y: 450, type: "regular", value: 1 },
+    { x: 1200, y: 450, type: "regular", value: 1 },
+    { x: 1500, y: 450, type: "regular", value: 1 },
+    { x: 1750, y: 450, type: "regular", value: 1 },
   ];
 
   for (const pos of coinPositions) {
@@ -185,8 +185,8 @@ function createBossLevel(game) {
   // Set level end (after defeating boss)
   level.endX = 1900;
 
-  // Set required votes (lower since this is a boss fight)
-  level.setRequiredVotes(8);
+  // Set required votes to be challenging but achievable
+  level.setRequiredVotes(12);
 
   // Mark this as a boss level
   level.isBossLevel = true;
