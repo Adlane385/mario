@@ -21,7 +21,8 @@ class Coin extends Entity {
   ) {
     super(x, y, COIN_WIDTH, COIN_HEIGHT, sprite);
 
-    this.value = value;
+    // Ensure value is at least 1
+    this.value = value < 1 ? 1 : value;
     this.type = type;
     this.description = description;
     this.collected = false;

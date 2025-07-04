@@ -205,6 +205,14 @@ class UI {
     // Show the requested screen
     if (this.screens[screenName]) {
       this.screens[screenName].classList.remove("hidden");
+
+      // If showing the game screen, trigger a canvas resize
+      if (screenName === "game" && this.game) {
+        // Use setTimeout to ensure the screen is visible before resizing
+        setTimeout(() => {
+          this.game.resizeCanvas();
+        }, 10);
+      }
     }
   }
 

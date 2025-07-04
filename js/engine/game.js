@@ -636,8 +636,7 @@ class Game {
     // Check if player has enough votes
     if (this.player.score < this.currentLevel.requiredVotes) {
       // Not enough votes, restart level
-      this.currentLevel.reset();
-      this.player.resetPosition();
+      this.setState(GAME_STATE.GAME_OVER);
       return;
     }
 
@@ -656,6 +655,7 @@ class Game {
   nextLevel() {
     // Determine next level based on level order
     this.currentLevelIndex++;
+    this.player.score = 0;
 
     if (this.currentLevelIndex >= this.levelOrder.length) {
       // All levels completed
@@ -691,9 +691,20 @@ class Game {
    * Resize canvas to fit container while maintaining aspect ratio
    */
   resizeCanvas() {
+    // Ensure the canvas is visible before measuring
+    if (this.canvas.parentElement.classList.contains("hidden")) {
+      // If parent is hidden, set default dimensions and return
+      // We'll resize again when the game screen becomes visible
+      this.canvas.width = GAME_WIDTH;
+      this.canvas.height = GAME_HEIGHT;
+      this.canvas.style.width = `${GAME_WIDTH}px`;
+      this.canvas.style.height = `${GAME_HEIGHT}px`;
+      return;
+    }
+
     const container = this.canvas.parentElement;
-    const containerWidth = container.clientWidth;
-    const containerHeight = container.clientHeight;
+    const containerWidth = container.clientWidth || window.innerWidth;
+    const containerHeight = container.clientHeight || window.innerHeight;
 
     // Maintain 4:3 aspect ratio
     let canvasWidth, canvasHeight;
@@ -715,6 +726,11 @@ class Game {
     // Set canvas style dimensions for display
     this.canvas.style.width = `${canvasWidth}px`;
     this.canvas.style.height = `${canvasHeight}px`;
+
+    // Force a redraw
+    if (this.currentLevel && this.state === GAME_STATE.PLAYING) {
+      this.draw();
+    }
   }
 
   /**

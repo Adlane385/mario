@@ -224,7 +224,7 @@ function createHouseLevel(game) {
   level.endX = 4800;
 
   // Set required votes (increased difficulty)
-  level.setRequiredVotes(25);
+  level.setRequiredVotes(330);
 
   return level;
 }
