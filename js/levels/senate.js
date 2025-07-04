@@ -276,8 +276,8 @@ function createSenateLevel(game) {
   // Set level end
   level.endX = 4800;
 
-  // Set required votes
-  level.setRequiredVotes(12);
+  // Set required votes (increased difficulty)
+  level.setRequiredVotes(25);
 
   return level;
 }

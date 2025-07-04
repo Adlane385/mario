@@ -64,9 +64,8 @@ class UI {
       this.firstLevelType = LEVEL_TYPE.HOUSE;
       this.game.setLevelOrder([
         LEVEL_TYPE.HOUSE,
-        LEVEL_TYPE.BOSS,
         LEVEL_TYPE.SENATE,
-        LEVEL_TYPE.FINAL,
+        LEVEL_TYPE.BOSS,
       ]);
       this.game.startLevel(LEVEL_TYPE.HOUSE);
     });
@@ -75,9 +74,8 @@ class UI {
       this.firstLevelType = LEVEL_TYPE.SENATE;
       this.game.setLevelOrder([
         LEVEL_TYPE.SENATE,
-        LEVEL_TYPE.BOSS,
         LEVEL_TYPE.HOUSE,
-        LEVEL_TYPE.FINAL,
+        LEVEL_TYPE.BOSS,
       ]);
       this.game.startLevel(LEVEL_TYPE.SENATE);
     });
@@ -95,28 +93,21 @@ class UI {
         currentLevelType === LEVEL_TYPE.HOUSE &&
         this.firstLevelType === LEVEL_TYPE.HOUSE
       ) {
-        // Show video transition to boss level
+        // Show video transition to Senate level
         this.playVideo(VIDEO_TYPE.HOUSE_TO_SENATE);
       } else if (
         currentLevelType === LEVEL_TYPE.SENATE &&
         this.firstLevelType === LEVEL_TYPE.SENATE
       ) {
-        // Show video transition to boss level
+        // Show video transition to House level
         this.playVideo(VIDEO_TYPE.SENATE_TO_HOUSE);
-      } else if (currentLevelType === LEVEL_TYPE.BOSS) {
-        // After boss level, show transition to other chamber
-        if (this.firstLevelType === LEVEL_TYPE.HOUSE) {
-          this.playVideo(VIDEO_TYPE.HOUSE_TO_SENATE);
-        } else {
-          this.playVideo(VIDEO_TYPE.SENATE_TO_HOUSE);
-        }
       } else if (
         (currentLevelType === LEVEL_TYPE.HOUSE &&
           this.firstLevelType === LEVEL_TYPE.SENATE) ||
         (currentLevelType === LEVEL_TYPE.SENATE &&
           this.firstLevelType === LEVEL_TYPE.HOUSE)
       ) {
-        // Show video before final level
+        // Show video before boss level
         this.playVideo(VIDEO_TYPE.BEFORE_FINAL);
       } else {
         // No video, just go to next level
@@ -131,6 +122,14 @@ class UI {
 
     // Play again button
     this.buttons.playAgain.addEventListener("click", () => {
+      // Reset UI state
+      this.firstLevelType = null;
+      this.currentVideo = null;
+
+      // Reset game state
+      this.game.restart();
+
+      // Show intro screen
       this.showScreen("intro");
     });
   }
@@ -254,13 +253,13 @@ class UI {
         videoTitle = "Your Bill is Now a Law!";
         break;
     }
-    
+
     // Try to load the video if it exists
     try {
       const videoExists = new XMLHttpRequest();
-      videoExists.open('HEAD', videoSrc, false);
+      videoExists.open("HEAD", videoSrc, false);
       videoExists.send();
-      
+
       if (videoExists.status === 200) {
         // Video exists, use it
         video.src = videoSrc;

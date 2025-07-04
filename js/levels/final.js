@@ -78,32 +78,45 @@ function createFinalLevel(game) {
     );
   }
 
-  // Special coins (votes) worth more points
+  // All coins (votes) worth 1 point
   const coinPositions = [
-    { x: 300, y: 450, type: "special", value: 2 },
-    { x: 450, y: 350, type: "special", value: 2 },
+    { x: 300, y: 450, type: "special", value: 1 },
+    { x: 450, y: 350, type: "special", value: 1 },
     { x: 600, y: 450, type: "regular", value: 1 },
     { x: 750, y: 300, type: "regular", value: 1 },
-    { x: 900, y: 450, type: "special", value: 2 },
-    { x: 1050, y: 250, type: "special", value: 2 },
+    { x: 900, y: 450, type: "special", value: 1 },
+    { x: 1050, y: 250, type: "special", value: 1 },
     { x: 1200, y: 450, type: "regular", value: 1 },
     { x: 1350, y: 300, type: "regular", value: 1 },
-    { x: 1500, y: 450, type: "special", value: 2 },
-    { x: 1650, y: 350, type: "special", value: 2 },
+    { x: 1500, y: 450, type: "special", value: 1 },
+    { x: 1650, y: 350, type: "special", value: 1 },
     { x: 1800, y: 450, type: "regular", value: 1 },
     { x: 1950, y: 250, type: "regular", value: 1 },
-    { x: 2100, y: 450, type: "special", value: 2 },
-    { x: 2250, y: 300, type: "special", value: 2 },
+    { x: 2100, y: 450, type: "special", value: 1 },
+    { x: 2250, y: 300, type: "special", value: 1 },
     { x: 2400, y: 450, type: "regular", value: 1 },
     { x: 2550, y: 350, type: "regular", value: 1 },
-    { x: 2700, y: 450, type: "special", value: 2 },
-    { x: 2850, y: 250, type: "special", value: 2 },
+    { x: 2700, y: 450, type: "special", value: 1 },
+    { x: 2850, y: 250, type: "special", value: 1 },
     { x: 3000, y: 450, type: "regular", value: 1 },
     { x: 3150, y: 300, type: "regular", value: 1 },
-    { x: 3300, y: 450, type: "special", value: 2 },
-    { x: 3450, y: 350, type: "special", value: 2 },
+    { x: 3300, y: 450, type: "special", value: 1 },
+    { x: 3450, y: 350, type: "special", value: 1 },
     { x: 3600, y: 450, type: "regular", value: 1 },
     { x: 3750, y: 300, type: "regular", value: 1 },
+    // Add more coins to make it possible to reach the required votes
+    { x: 350, y: 450, type: "regular", value: 1 },
+    { x: 500, y: 350, type: "regular", value: 1 },
+    { x: 650, y: 450, type: "regular", value: 1 },
+    { x: 800, y: 300, type: "regular", value: 1 },
+    { x: 950, y: 450, type: "regular", value: 1 },
+    { x: 1100, y: 250, type: "regular", value: 1 },
+    { x: 1250, y: 450, type: "regular", value: 1 },
+    { x: 1400, y: 300, type: "regular", value: 1 },
+    { x: 1550, y: 450, type: "regular", value: 1 },
+    { x: 1700, y: 350, type: "regular", value: 1 },
+    { x: 1850, y: 450, type: "regular", value: 1 },
+    { x: 2000, y: 250, type: "regular", value: 1 },
   ];
 
   for (const pos of coinPositions) {
@@ -222,8 +235,8 @@ function createFinalLevel(game) {
   // Set level end
   level.endX = 3800;
 
-  // Set required votes
-  level.setRequiredVotes(20);
+  // Set required votes (increased difficulty)
+  level.setRequiredVotes(30);
 
   return level;
 }

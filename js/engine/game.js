@@ -10,9 +10,11 @@ class Game {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
 
-    // Set canvas dimensions
-    this.canvas.width = GAME_WIDTH;
-    this.canvas.height = GAME_HEIGHT;
+    // Set canvas dimensions based on container size
+    this.resizeCanvas();
+
+    // Add event listener for window resize
+    window.addEventListener("resize", () => this.resizeCanvas());
 
     // Game state
     this.state = GAME_STATE.INTRO;
@@ -686,6 +688,36 @@ class Game {
   }
 
   /**
+   * Resize canvas to fit container while maintaining aspect ratio
+   */
+  resizeCanvas() {
+    const container = this.canvas.parentElement;
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
+
+    // Maintain 4:3 aspect ratio
+    let canvasWidth, canvasHeight;
+
+    if (containerWidth / containerHeight > 4 / 3) {
+      // Container is wider than 4:3
+      canvasHeight = containerHeight;
+      canvasWidth = containerHeight * (4 / 3);
+    } else {
+      // Container is taller than 4:3
+      canvasWidth = containerWidth;
+      canvasHeight = containerWidth * (3 / 4);
+    }
+
+    // Set canvas dimensions
+    this.canvas.width = GAME_WIDTH;
+    this.canvas.height = GAME_HEIGHT;
+
+    // Set canvas style dimensions for display
+    this.canvas.style.width = `${canvasWidth}px`;
+    this.canvas.style.height = `${canvasHeight}px`;
+  }
+
+  /**
    * Game complete
    */
   gameComplete() {
@@ -709,13 +741,12 @@ class Game {
     this.player.lives = 3;
     this.player.score = 0;
 
-    // Reset level index
+    // Reset level index and order
     this.currentLevelIndex = 0;
+    this.levelOrder = [];
 
-    // Start first level
-    if (this.levelOrder.length > 0) {
-      this.startLevel(this.levelOrder[0]);
-    }
+    // Reset game state to intro
+    this.setState(GAME_STATE.INTRO);
   }
 
   /**

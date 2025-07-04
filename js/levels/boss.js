@@ -120,19 +120,28 @@ function createBossLevel(game) {
 
   // Power-up coins (special votes)
   const coinPositions = [
-    { x: 250, y: 350, type: "special", value: 3 },
-    { x: 500, y: 200, type: "special", value: 3 },
-    { x: 800, y: 250, type: "special", value: 3 },
-    { x: 1000, y: 300, type: "special", value: 3 },
-    { x: 1150, y: 150, type: "special", value: 3 },
-    { x: 1400, y: 350, type: "special", value: 3 },
-    { x: 1600, y: 250, type: "special", value: 3 },
-    // Add some regular coins for additional votes
+    { x: 250, y: 350, type: "special", value: 1 },
+    { x: 500, y: 200, type: "special", value: 1 },
+    { x: 800, y: 250, type: "special", value: 1 },
+    { x: 1000, y: 300, type: "special", value: 1 },
+    { x: 1150, y: 150, type: "special", value: 1 },
+    { x: 1400, y: 350, type: "special", value: 1 },
+    { x: 1600, y: 250, type: "special", value: 1 },
     { x: 300, y: 450, type: "regular", value: 1 },
     { x: 600, y: 450, type: "regular", value: 1 },
     { x: 1200, y: 450, type: "regular", value: 1 },
     { x: 1500, y: 450, type: "regular", value: 1 },
     { x: 1750, y: 450, type: "regular", value: 1 },
+    { x: 350, y: 350, type: "regular", value: 1 },
+    { x: 550, y: 200, type: "regular", value: 1 },
+    { x: 850, y: 250, type: "regular", value: 1 },
+    { x: 1050, y: 300, type: "regular", value: 1 },
+    { x: 1200, y: 150, type: "regular", value: 1 },
+    { x: 1450, y: 350, type: "regular", value: 1 },
+    { x: 1650, y: 250, type: "regular", value: 1 },
+    { x: 400, y: 450, type: "regular", value: 1 },
+    { x: 700, y: 450, type: "regular", value: 1 },
+    { x: 1300, y: 450, type: "regular", value: 1 },
   ];
 
   for (const pos of coinPositions) {
@@ -186,7 +195,7 @@ function createBossLevel(game) {
   level.endX = 1900;
 
   // Set required votes to be challenging but achievable
-  level.setRequiredVotes(12);
+  level.setRequiredVotes(20);
 
   // Mark this as a boss level
   level.isBossLevel = true;
