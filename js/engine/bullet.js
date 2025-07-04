@@ -17,6 +17,7 @@ class Bullet extends Entity {
     this.damage = 1;
     this.maxDistance = 600; // Maximum distance bullet can travel
     this.startX = x;
+    this.color = "#FFD700"; // Default yellow color for player bullets
   }
 
   /**
@@ -65,8 +66,8 @@ class Bullet extends Entity {
     const drawX = this.x - offsetX;
     const drawY = this.y - offsetY;
 
-    // Draw bullet as a yellow oval
-    ctx.fillStyle = "#FFD700";
+    // Draw bullet as an oval with the specified color
+    ctx.fillStyle = this.color;
     ctx.beginPath();
     ctx.ellipse(
       drawX + this.width / 2,
@@ -80,7 +81,7 @@ class Bullet extends Entity {
     ctx.fill();
 
     // Add a glow effect
-    ctx.shadowColor = "#FFD700";
+    ctx.shadowColor = this.color;
     ctx.shadowBlur = 5;
     ctx.fill();
     ctx.shadowBlur = 0;

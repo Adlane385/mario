@@ -94,11 +94,12 @@ class Hazard extends Entity {
    * @param {number} y - Y position
    */
   drawHole(ctx, x, y) {
-    // Draw hole as a dark pit
+    // Make the hole transparent with a slight dark tint
+    ctx.globalAlpha = 0.3;
     ctx.fillStyle = "#000000";
     ctx.fillRect(x, y, this.width, this.height);
-
-    // Add some depth effect
+    
+    // Add a subtle gradient for depth effect
     const gradient = ctx.createRadialGradient(
       x + this.width / 2,
       y + this.height / 2,
@@ -107,18 +108,27 @@ class Hazard extends Entity {
       y + this.height / 2,
       this.width / 2
     );
-    gradient.addColorStop(0, "#333333");
-    gradient.addColorStop(1, "#000000");
+    gradient.addColorStop(0, "rgba(0, 0, 0, 0.4)");
+    gradient.addColorStop(1, "rgba(0, 0, 0, 0.7)");
 
     ctx.fillStyle = gradient;
     ctx.fillRect(x, y, this.width, this.height);
+    
+    // Reset alpha
+    ctx.globalAlpha = 1.0;
 
-    // Add warning stripes around the edge
+    // Add warning stripes around the edge for visibility
     ctx.strokeStyle = "#FFFF00";
     ctx.lineWidth = 3;
     ctx.setLineDash([10, 10]);
     ctx.strokeRect(x, y, this.width, this.height);
     ctx.setLineDash([]);
+    
+    // Add "DANGER" text for clarity
+    ctx.fillStyle = "#FFFF00";
+    ctx.font = "14px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText("DANGER", x + this.width / 2, y + this.height / 2);
   }
 
   /**
